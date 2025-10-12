@@ -1027,6 +1027,12 @@ section {
     color: var(--first-color);
     margin-bottom: 0.35rem;
 }
+
+/* Add + sign only for first counter (Total Projects) */
+.stat-box:first-child .counter-number::before {
+    content: '+';
+    margin-right: 2px;
+}
 .counter-label {
     font-size: calc(var(--normal-font-size) - 0.05rem);
     text-transform: uppercase;
