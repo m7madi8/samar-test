@@ -1,5 +1,90 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Protection: Disable Right-Click and Image Download ---
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        return false;
+    });
+
+    // Disable keyboard shortcuts (F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S, etc.)
+    document.addEventListener('keydown', (e) => {
+        // Disable F12 (Developer Tools)
+        if (e.key === 'F12') {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+Shift+I (Developer Tools)
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+Shift+J (Console)
+        if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+U (View Source)
+        if (e.ctrlKey && e.key === 'u') {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+S (Save Page)
+        if (e.ctrlKey && e.key === 's') {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+P (Print - can be used to save as PDF)
+        if (e.ctrlKey && e.key === 'p') {
+            e.preventDefault();
+            return false;
+        }
+        // Disable Ctrl+Shift+C (Inspect Element)
+        if (e.ctrlKey && e.shiftKey && e.key === 'C') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Disable image dragging
+    document.addEventListener('dragstart', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Disable image selection
+    document.addEventListener('selectstart', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Add overlay to images to prevent right-click
+    const allImages = document.querySelectorAll('img');
+    allImages.forEach(img => {
+        // Disable drag
+        img.setAttribute('draggable', 'false');
+        // Add CSS to prevent selection
+        img.style.userSelect = 'none';
+        img.style.webkitUserSelect = 'none';
+        img.style.mozUserSelect = 'none';
+        img.style.msUserSelect = 'none';
+        // Prevent context menu
+        img.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
+    });
+
+    // Disable text selection (optional - uncomment if needed)
+    // document.addEventListener('selectstart', (e) => {
+    //     e.preventDefault();
+    //     return false;
+    // });
+
     // --- Preloader ---
     const loaderWrapper = document.querySelector('.loader-wrapper');
     window.addEventListener('load', () => {
